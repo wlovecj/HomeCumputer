@@ -7,19 +7,13 @@ package test.Thread;
  * @param args
  */
 class MyThread extends Thread{
-	Integer count=0;
-	
+
 	@Override
 	public void run(){
 		System.out.println("MyThread runing!");
 	}
 	
 
-	public void getCount(){
-		count++;
-		System.out.println(count);
-	}
-	
 }
 
 /**
@@ -29,8 +23,17 @@ class MyThread extends Thread{
  * @param args
  */
 class MyRunnable implements Runnable{
+	private String inputchar;
+	private int times;
+	
+	MyRunnable(String inputchar,int times){
+		this.inputchar=inputchar;
+		this.times=times;
+	}
+	
 	public void run(){
-		System.out.println("MyRunnable running!");
+		for(int i=0;i<times;i++)
+		System.out.print(inputchar);
 	}
 }
 
@@ -46,14 +49,15 @@ public class TestThread {
 
 	public static void main(String[] args) {
 		
-		
-		
 		MyThread myThread=new MyThread();
 		myThread.start();
-		myThread.getCount();
 		
-		Thread myRunnable=new Thread(new MyRunnable());
-		myRunnable.start();
+		Thread myRunnable1=new Thread(new MyRunnable("a",10));
+		Thread myRunnable2=new Thread(new MyRunnable("b",10));
+		Thread myRunnable3=new Thread(new MyRunnable("c",10));
+		myRunnable1.start();
+		myRunnable2.start();
+		myRunnable3.start();
 
 	}
 
